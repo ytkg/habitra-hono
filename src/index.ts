@@ -8,4 +8,9 @@ app.notFound((c) => {
   return c.json({ message: '404 Not Found.' })
 })
 
+app.onError((err, c) => {
+  console.error(err)
+  return c.json({ message: 'Whoops!' })
+})
+
 export default app
