@@ -15,15 +15,10 @@ app.onError((err, c) => {
 
 const v1 = new Hono()
 
-type CreateUserParams = {
-  id: string
-  password: string
-}
-
 v1.post('/users', async (c) => {
-  const createUserParams = await c.req.json<CreateUserParams>()
+  const { id, password } = await c.req.json()
 
-  console.log(createUserParams)
+  console.log({ id, password })
 
   return c.json({ message: 'Success.' })
 })
