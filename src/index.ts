@@ -47,6 +47,18 @@ users.delete('/:user_id', (c) => {
   return c.json({ message: 'Success.' })
 })
 
+const habits = new Hono()
+
+habits.post('/', async (c) => {
+  const { user_id } = c.req.param()
+  const { name } = await c.req.json()
+
+  console.log({ user_id, name })
+
+  return c.json({ message: 'Success.' })
+})
+
+users.route('/:user_id/habits', habits)
 v1.route('/users', users)
 app.route('/v1', v1)
 
