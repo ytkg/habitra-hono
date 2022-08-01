@@ -43,6 +43,10 @@ users.put('/:user_id', async (c) => {
   return c.json({ message: 'Success.' })
 })
 
+users.delete('/:user_id', (c) => {
+  return c.json({ message: 'Success.' })
+})
+
 v1.route('/users', users)
 app.route('/v1', v1)
 
