@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { basicAuth } from 'hono/basic-auth'
 
 const app = new Hono()
 
@@ -23,6 +24,26 @@ v1.post('/users', async (c) => {
   return c.json({ message: 'Success.' })
 })
 
+const users = new Hono()
+
+users.use('/*', async (c, next) => {
+  await next()
+  if (c.res.status === 401) {
+    return c.json({ message: 'Unauthorized.' }, 401)
+  }
+})
+users.use('/*', basicAuth({ username: 'user', password: 'pass' }))
+
+users.put('/:user_id', async (c) => {
+  const { user_id } = c.req.param()
+  const { password } = await c.req.json()
+
+  console.log({ user_id, password })
+
+  return c.json({ message: 'Success.' })
+})
+
+v1.route('/users', users)
 app.route('/v1', v1)
 
 export default app
