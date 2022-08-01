@@ -5,12 +5,12 @@ const app = new Hono()
 app.get('/', (c) => c.html("Hello, HabiTra!\n"))
 
 app.notFound((c) => {
-  return c.json({ message: '404 Not Found.' })
+  return c.json({ message: '404 Not Found.' }, 404)
 })
 
 app.onError((err, c) => {
   console.error(err)
-  return c.json({ message: 'Whoops!' })
+  return c.json({ message: 'Whoops!' }, 500)
 })
 
 const v1 = new Hono()
