@@ -58,6 +58,14 @@ habits.post('/', async (c) => {
   return c.json({ message: 'Success.' })
 })
 
+habits.get('/', (c) => {
+  const { user_id } = c.req.param()
+
+  console.log({ user_id })
+
+  return c.json({ message: 'Success.' })
+})
+
 users.route('/:user_id/habits', habits)
 v1.route('/users', users)
 app.route('/v1', v1)
